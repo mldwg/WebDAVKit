@@ -37,7 +37,8 @@ extension WebDAVSession {
     /// - Parameters: account: The account used to authorize the request.
     /// - Returns: The data and the response.
     public func data(from path: any WebDAVPathProtocol, 
-                     headers: [String: String]? = nil, query: [String: String]? = nil,
+                     headers: [String: String]? = nil,
+                     query: [String: String]? = nil,
                      account: any WebDAVAccount) async throws -> (Data, HTTPURLResponse) {
         let request = try self.authorizedRequest(method: .get, filePath: path, query: query, headers: headers, account: account)
         return try await self.data(request: request)
@@ -53,7 +54,8 @@ extension WebDAVSession {
     /// - Returns: The data and the response.
     public func data(from path: any WebDAVPathProtocol, 
                      byteRangeStart: Int, byteRangeEnd: Int?,
-                     headers: [String: String]? = nil, query: [String: String]? = nil,
+                     headers: [String: String]? = nil,
+                     query: [String: String]? = nil,
                      account: any WebDAVAccount) async throws -> (Data, HTTPURLResponse) {
         
         var headers: [String: String] = headers ?? [:]
