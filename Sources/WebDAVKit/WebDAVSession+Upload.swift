@@ -117,12 +117,12 @@ extension WebDAVSession {
     /// - Parameters: account: The account used to authorize the request.
     /// - Returns: The upload task.
     /// - Note: The task is not started automatically. You need to call `resume()` on it.
-    public func createUploadTask(to path: any WebDAVPathProtocol,
-                                 fromFile fileURL: URL, contentType: MimeType,
-                                 headers: [String: String]? = nil, query: [String: String]? = nil,
-                                 modifiedTime: Date?,
-                                 account: any WebDAVAccount,
-                                 modifyRequest: WebDAVRequestModifyClosure?) throws -> URLSessionUploadTask {
+    public func uploadTask(to path: any WebDAVPathProtocol,
+                           fromFile fileURL: URL, contentType: MimeType,
+                           headers: [String: String]? = nil, query: [String: String]? = nil,
+                           modifiedTime: Date?,
+                           account: any WebDAVAccount,
+                           modifyRequest: WebDAVRequestModifyClosure?) throws -> URLSessionUploadTask {
         
         var request = try self.authorizedRequest(method: .put, filePath: path,
                                                  query: query, headers: headers,

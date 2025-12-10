@@ -41,4 +41,25 @@ extension WebDAVSession {
         let request = try self.authorizedRequest(method: .get, filePath: path, query: query, headers: headers, account: account)
         return try await self.download(request: request)
     }
+    
+    /// Creates an download task to download data to a file.
+    /// - Parameters: path: The path to upload the data to.
+    /// - Parameters: headers: Any additional headers to use for the request.
+    /// - Parameters: query: The query to use for the request.
+    /// - Parameters: account: The account used to authorize the request.
+    /// - Returns: The upload task.
+    /// - Note: The task is not started automatically. You need to call `resume()` on it.
+    public func downloadTask(to path: any WebDAVPathProtocol,
+                           fromFile fileURL: URL, contentType: MimeType,
+                           headers: [String: String]? = nil, query: [String: String]? = nil,
+                           modifiedTime: Date?,
+                           account: any WebDAVAccount,
+                           modifyRequest: WebDAVRequestModifyClosure?) throws -> URLSessionDownloadTask {
+        
+        var request = try self.authorizedRequest(method: .get, filePath: path, query: query, headers: headers, account: account)
+
+        modifyRequest?(&request)
+        
+        return self.urlSession.downloadTask(with: request)
+    }
 }
