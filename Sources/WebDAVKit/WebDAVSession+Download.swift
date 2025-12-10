@@ -49,8 +49,9 @@ extension WebDAVSession {
     /// - Parameters: account: The account used to authorize the request.
     /// - Returns: The download task.
     /// - Note: The task is not started automatically. You need to call `resume()` on it.
-    public func downloadTask(to path: any WebDAVPathProtocol,
-                             headers: [String: String]? = nil, query: [String: String]? = nil,
+    public func downloadTask(from path: any WebDAVPathProtocol,
+                             headers: [String: String]? = nil,
+                             query: [String: String]? = nil,
                              account: any WebDAVAccount,
                              modifyRequest: WebDAVRequestModifyClosure?) throws -> URLSessionDownloadTask {
         
