@@ -34,8 +34,15 @@ extension WebDAVSession {
             throw WebDAVError.cannotMoveAcrossHostnames
         }
         
+        
+        let destinationURL = try absoluteDestination.hostUrl.appending(
+            path: absoluteDestination.path.stringRepresentation,
+            directoryHint: .notDirectory
+        )
+
+        
         var headers = headers ?? [String: String]()
-        headers["Destination"] = absoluteDestination.path.stringRepresentation
+        headers["Destination"] = destinationURL.absoluteString
         headers["Overwrite"] = overwrite ? "T" : "F"
         
         let request = try self.authorizedRequest(method: method, filePath: origin, query: query, headers: headers, account: account)

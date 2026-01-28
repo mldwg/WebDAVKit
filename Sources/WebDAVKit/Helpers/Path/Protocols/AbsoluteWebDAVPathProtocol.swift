@@ -27,6 +27,8 @@ public protocol AbsoluteWebDAVPathProtocol: WebDAVPathProtocol, Equatable {
     var urlComponents: URLComponents { get }
     /// The path converted to an URL.
     var url: URL { get throws }
+    /// The URL of the host without any path set.
+    var hostUrl: URL { get throws }
     
     /// The name of the file or directory. Equal to the last path component without the file extension.
     var fileName: String? { get }
@@ -62,6 +64,17 @@ public extension AbsoluteWebDAVPathProtocol {
     
     var url: URL {
         get throws {
+            guard let url = urlComponents.url else {
+                throw WebDAVError.urlBuildingError
+            }
+            return url
+        }
+    }
+    
+    var hostUrl: URL {
+        get throws {
+            var urlComponents = self.urlComponents
+            urlComponents.path = ""
             guard let url = urlComponents.url else {
                 throw WebDAVError.urlBuildingError
             }
