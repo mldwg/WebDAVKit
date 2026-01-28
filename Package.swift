@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "WebDAVKit",
-    platforms: [.iOS(.v15), .macOS(.v13)],
+    platforms: [.iOS(.v16), .macOS(.v13)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
